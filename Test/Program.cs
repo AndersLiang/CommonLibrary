@@ -10,7 +10,7 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            new Concurrent.SimpleProducterConsumer().Start();
+            new Concurrent.ProducerConsumerWithBlockingCollection().Start();
 
             Console.Read();
         }

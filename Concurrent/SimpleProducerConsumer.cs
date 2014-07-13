@@ -8,26 +8,26 @@ using System.Collections.Concurrent;
 
 namespace Concurrent
 {
-    public class SimpleProducterConsumer
+    public class SimpleProducerConsumer
     {
         private ConcurrentQueue<int> mProducts = new ConcurrentQueue<int>();
         private int mThreshold = 10;
-        private AutoResetEvent mProductAutoResetEvent = new AutoResetEvent(false);
+        private AutoResetEvent mProducerAutoResetEvent = new AutoResetEvent(false);
         private AutoResetEvent mConsumerAutoResetEvent = new AutoResetEvent(true);
 
-        public SimpleProducterConsumer()
+        public SimpleProducerConsumer()
         {
         }
 
         public void Start()
         {
-            var producter = Task.Factory.StartNew(() =>
+            var producer = Task.Factory.StartNew(() =>
             {
                 foreach (var p in Products)
                 {
                     Thread.Sleep(100);
                     mProducts.Enqueue(p);
-                    mProductAutoResetEvent.Set();
+                    mProducerAutoResetEvent.Set();
 
                     if (mProducts.Count > mThreshold)
                         mConsumerAutoResetEvent.WaitOne();
@@ -46,7 +46,7 @@ namespace Concurrent
                         mConsumerAutoResetEvent.Set();
                     }
                     else
-                        mProductAutoResetEvent.WaitOne();
+                        mProducerAutoResetEvent.WaitOne();
                 }
             });
 
@@ -62,7 +62,7 @@ namespace Concurrent
                        mConsumerAutoResetEvent.Set();
                    }
                    else
-                       mProductAutoResetEvent.WaitOne();
+                       mProducerAutoResetEvent.WaitOne();
                }
            });
 
