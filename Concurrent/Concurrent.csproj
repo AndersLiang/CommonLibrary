@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProducerConsumerQueue.cs" />
     <Compile Include="ProducerConsumerWithBlockingCollection.cs" />
     <Compile Include="SimpleProducerConsumer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
